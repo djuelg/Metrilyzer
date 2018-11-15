@@ -2,19 +2,20 @@ package de.djuelg.domain.datastructure;
 
 import java.util.Collection;
 
-public class MetricClass {
+public class ClassDTO {
 
     private final String name;
 
-    private final Collection<MetricClass> innerClasses;
-    private final Collection<MetricMethod> methods;
+    private final Collection<ClassDTO> innerClasses;
+    private final Collection<MethodDTO> methods;
 
     private final int nonJavaDocCommentCount;
     private final int fieldCount;
     private final int constantCount;
     private final int implementsCount;
+    private final int lineCount;
 
-    public MetricClass(String name, Collection<MetricClass> innerClasses, Collection<MetricMethod> methods, int nonJavaDocCommentCount, int fieldCount, int constantCount, int implementsCount) {
+    public ClassDTO(String name, Collection<ClassDTO> innerClasses, Collection<MethodDTO> methods, int nonJavaDocCommentCount, int fieldCount, int constantCount, int implementsCount, int lineCount) {
         this.name = name;
         this.innerClasses = innerClasses;
         this.methods = methods;
@@ -22,17 +23,18 @@ public class MetricClass {
         this.fieldCount = fieldCount;
         this.constantCount = constantCount;
         this.implementsCount = implementsCount;
+        this.lineCount = lineCount;
     }
 
     public String getName() {
         return name;
     }
 
-    public Collection<MetricClass> getInnerClasses() {
+    public Collection<ClassDTO> getInnerClasses() {
         return innerClasses;
     }
 
-    public Collection<MetricMethod> getMethods() {
+    public Collection<MethodDTO> getMethods() {
         return methods;
     }
 
@@ -50,5 +52,9 @@ public class MetricClass {
 
     public int getImplementsCount() {
         return implementsCount;
+    }
+
+    public int getLineCount() {
+        return lineCount;
     }
 }
