@@ -5,5 +5,5 @@ import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtType;
 
 public abstract class MetricProcessor<T extends CtType<?>> extends AbstractProcessor<T> {
-    public abstract MetricResult geMetricResult();
+    public abstract MetricResult createMetricResult();
 }

@@ -57,6 +57,6 @@ public class SpoonProcessors {
 
     public List<MetricResult> results() {
         return processors.stream()
-                .map(MetricProcessor::geMetricResult).collect(Collectors.toList());
+                .map(MetricProcessor::createMetricResult).collect(Collectors.toList());
     }
 }

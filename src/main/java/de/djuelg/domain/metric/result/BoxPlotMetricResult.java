@@ -1,38 +1,54 @@
 package de.djuelg.domain.metric.result;
 
+import de.djuelg.domain.metric.Datapoint;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class BoxPlotMetricResult implements MetricResult {
 
-    private final long minimum;
-    private final long maximum;
-    private final long firstQuartile;
-    private final long thirdQuartile;
-    private final long median;
+    private static final double FIRST_QUARTILE = 0.25;
+    private static final double THIRD_QUARTILE = 0.75;
+    private static final double MEDIAN = 0.5;
 
-    public BoxPlotMetricResult(long minimum, long maximum, long firstQuartile, long thirdQuartile, long median) {
-        this.minimum = minimum;
-        this.maximum = maximum;
-        this.firstQuartile = firstQuartile;
-        this.thirdQuartile = thirdQuartile;
-        this.median = median;
+    private final List<Datapoint> datapoints;
+
+    public BoxPlotMetricResult(List<Datapoint> datapoints) {
+        this.datapoints = datapoints.stream().sorted().collect(Collectors.toList());
     }
 
-    public long getMinimum() {
-        return minimum;
+    public long median() {
+        return calculatePercentile(MEDIAN);
     }
 
-    public long getMaximum() {
-        return maximum;
+    public long firstQuartile() {
+        return calculatePercentile(FIRST_QUARTILE);
     }
 
-    public long getFirstQuartile() {
-        return firstQuartile;
+    public long thirdQuartile() {
+        return calculatePercentile(THIRD_QUARTILE);
     }
 
-    public long getThirdQuartile() {
-        return thirdQuartile;
+    private Long calculatePercentile(double percentile) {
+        int size = datapoints.size();
+        double q1 = datapoints.stream()
+                .mapToLong(Datapoint::datapoint)
+                .skip((long) ((size-1)*percentile)).limit(2-size%2)
+                .average().orElse(Double.NaN);
+        return Math.round(q1);
     }
 
-    public long getMedian() {
-        return median;
+    public long min() {
+        return datapoints.stream().findFirst().orElseThrow(RuntimeException::new).datapoint();
+    }
+
+    public long max() {
+        return datapoints.stream()
+                .skip(datapoints.size()-1)
+                .findFirst().orElseThrow(RuntimeException::new).datapoint();
+    }
+
+    public List<Datapoint> getDatapoints() {
+        return datapoints;
     }
 }
