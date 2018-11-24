@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
+import de.djuelg.domain.metric.Metric;
+import de.djuelg.framework.spoon.SpoonMetricRunner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,7 +21,7 @@ public class MetrilyzerTest {
     private static final String INPUT_PROJECT_PATH =  "src/test/resources/Neuronizer/main/";
     private static final String METRIC_OUTPUT_PATH =  "target/metrics/";
 
-    private MetricRunner metricRunner = mock(MetricRunner.class);
+    private MetricRunner metricRunner = mock(SpoonMetricRunner.class);
     private MetricVisualizer metricVisualizer = mock(MetricVisualizer.class);
 
     @Ignore("testApiUsage: Ignored until classes is implemented")
@@ -32,8 +34,8 @@ public class MetrilyzerTest {
                 .writeDiagramsTo(outputDirectory)
                 .build();
 
-        metrilyzer.addMetric(null);
-        metrilyzer.addMetric(null);
+        metrilyzer.addMetric(Metric.LINES_PER_CLASS);
+        metrilyzer.addMetric(Metric.LINES_PER_METHOD);
         metrilyzer.run();
     }
 
@@ -54,7 +56,7 @@ public class MetrilyzerTest {
     public void testAddMetric_works() {
         Metrilyzer metrilyzer = new Metrilyzer(metricRunner, metricVisualizer);
 
-        metrilyzer.addMetric(null);
+        metrilyzer.addMetric(Metric.LINES_PER_CLASS);
 
         verify(metricRunner, times(1)).addMetric(any());
     }
@@ -64,7 +66,7 @@ public class MetrilyzerTest {
         Metrilyzer metrilyzer = new Metrilyzer(metricRunner, metricVisualizer);
         when(metricRunner.runMetricsOnProject()).thenReturn(new ArrayList<>());
 
-        metrilyzer.addMetric(null);
+        metrilyzer.addMetric(Metric.LINES_PER_CLASS);
         metrilyzer.run();
 
         verify(metricRunner, times(1)).runMetricsOnProject();

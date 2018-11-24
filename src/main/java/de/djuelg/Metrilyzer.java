@@ -4,10 +4,19 @@ import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.framework.DummyMetricVisualizer;
+import de.djuelg.framework.spoon.SpoonMetricRunner;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+
+// todo check launchers e.g. MavenLauncher
+// std launcher can be used ignoring libraries using setNoClasspath
+// https://clean-code-developer.com/
+// https://lumiera.org/project/background/CleanCodeDevelopment.html
+// https://medium.com/mindorks/how-to-write-clean-code-lessons-learnt-from-the-clean-code-robert-c-martin-9ffc7aef870c
+// https://dzone.com/articles/smells-in-java-code-do-you-recognize-them
 
 public class Metrilyzer {
 
@@ -33,8 +42,6 @@ public class Metrilyzer {
     }
 
 
-
-
     public static class MetrilyzerBuilder {
 
         private Path inputProject;
@@ -50,8 +57,8 @@ public class Metrilyzer {
         }
 
         public Metrilyzer build() {
-            MetricRunner metricRunner = new MetricRunner(Objects.requireNonNull(inputProject));
-            MetricVisualizer metricVisualizer = new MetricVisualizer(Objects.requireNonNull(outputDirectory));
+            MetricRunner metricRunner = new SpoonMetricRunner(Objects.requireNonNull(inputProject));
+            MetricVisualizer metricVisualizer = new DummyMetricVisualizer(Objects.requireNonNull(outputDirectory));
             return new Metrilyzer(metricRunner, metricVisualizer);
         }
     }

@@ -19,4 +19,7 @@ public class Benjamin {
 		return 24;
 	}
 
+	public void empty() {
+	}
+
 }

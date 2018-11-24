@@ -15,7 +15,7 @@ public class EmptyMethodBodyProcessorTest {
     @Test
     public void testEmptyMethodProcessor() {
         final String[] args = {
-                "-i", "src/test/resources/src/DocTest.java",
+                "-i", "src/test/resources/mavenproject/src/",
                 "-o", "target/spooned/"
         };
 
@@ -29,6 +29,6 @@ public class EmptyMethodBodyProcessorTest {
         processingManager.addProcessor(processor);
         processingManager.process(factory.Class().getAll());
 
-        assertThat(processor.emptyMethods.size(), is(4));
+        assertThat(processor.emptyMethods.size(), is(1));
     }
 }
