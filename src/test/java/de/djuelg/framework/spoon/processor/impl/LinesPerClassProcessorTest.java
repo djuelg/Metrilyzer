@@ -1,4 +1,4 @@
-package de.djuelg.framework.spoon.processor;
+package de.djuelg.framework.spoon.processor.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

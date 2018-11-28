@@ -1,9 +1,9 @@
 package de.djuelg.framework.spoon;
 
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.framework.spoon.processor.LinesPerClassProcessor;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import de.djuelg.framework.spoon.processor.impl.LinesPerClassProcessor;
+import de.djuelg.framework.spoon.processor.impl.LinesPerMethodProcessor;
 
 public class MetricProcessorFactory {
 
@@ -11,11 +11,8 @@ public class MetricProcessorFactory {
         switch (metric) {
             case LINES_PER_CLASS:
                 return new LinesPerClassProcessor();
-                //throw new NotImplementedException();
-                //break;
             case LINES_PER_METHOD:
-                throw new NotImplementedException();
-                //break;
+                return new LinesPerMethodProcessor();
             default:
                 throw new IllegalArgumentException("Unknown Metric?!?!!!");
         }

@@ -1,8 +1,9 @@
-package de.djuelg.framework.spoon.processor;
+package de.djuelg.framework.spoon.processor.impl;
 
 import de.djuelg.domain.metric.Datapoint;
 import de.djuelg.domain.metric.result.BoxPlotMetricResult;
 import de.djuelg.domain.model.LinesPerClass;
+import de.djuelg.framework.spoon.processor.MetricProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
