@@ -1,7 +1,7 @@
 package de.djuelg.framework;
 
 import de.djuelg.domain.MetricVisualizer;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.Metric;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -15,7 +15,7 @@ public class DummyMetricVisualizer implements MetricVisualizer {
     }
 
     @Override
-    public void createDiagramsOf(List<MetricResult> results) {
+    public void createDiagramsOf(List<Metric> results) {
         throw new NotImplementedException();
     }
 }

@@ -5,7 +5,7 @@ import static org.mockito.Mockito.*;
 
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.MetricType;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,33 +22,33 @@ public class SpoonMetricRunnerTest {
     public void testAddMetric_works() {
         MetricRunner metricRunner = new SpoonMetricRunner(Paths.get(INPUT_PROJECT_PATH));
 
-        metricRunner.addMetric(Metric.LINES_PER_CLASS);
+        metricRunner.addMetric(MetricType.LINES_PER_CLASS);
     }
 
     @Test
     public void testAddMetric_savesMetric() {
         MetricRunner metricRunner = new SpoonMetricRunner(spoonProcessors);
 
-        metricRunner.addMetric(Metric.LINES_PER_CLASS);
+        metricRunner.addMetric(MetricType.LINES_PER_CLASS);
 
-        verify(spoonProcessors, times(1)).addProcessorFor(Metric.LINES_PER_CLASS);
+        verify(spoonProcessors, times(1)).addProcessorFor(MetricType.LINES_PER_CLASS);
     }
 
     @Test
     public void testRunMetricOnProjects_returnsCollection() {
         MetricRunner metricRunner = new SpoonMetricRunner(Paths.get(INPUT_PROJECT_PATH));
 
-        List<MetricResult> metricResults = metricRunner.runMetricsOnProject();
+        List<Metric> metrics = metricRunner.runMetricsOnProject();
 
-        assertNotNull(metricResults);
+        assertNotNull(metrics);
     }
 
     @Test
     public void testRunMetricOnProjectsWithMetric_callsSpoonProcessors() {
         MetricRunner metricRunner = new SpoonMetricRunner(spoonProcessors);
 
-        metricRunner.addMetric(Metric.LINES_PER_CLASS);
-        List<MetricResult> metricResults = metricRunner.runMetricsOnProject();
+        metricRunner.addMetric(MetricType.LINES_PER_CLASS);
+        List<Metric> metrics = metricRunner.runMetricsOnProject();
 
         verify(spoonProcessors, times(1)).run();
         verify(spoonProcessors, times(1)).results();

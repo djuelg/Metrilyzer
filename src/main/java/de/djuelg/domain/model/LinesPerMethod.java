@@ -1,10 +1,9 @@
 package de.djuelg.domain.model;
 
-import de.djuelg.domain.metric.Datapoint;
-
 import java.util.Objects;
+import java.util.StringJoiner;
 
-public class LinesPerMethod implements Comparable<Datapoint>, Datapoint {
+public class LinesPerMethod {
     private final String qualifiedClassName;
     private final String methodName;
     private final long lineCount;
@@ -23,14 +22,8 @@ public class LinesPerMethod implements Comparable<Datapoint>, Datapoint {
         return methodName;
     }
 
-    @Override
-    public Long datapoint() {
+    public long getLineCount() {
         return lineCount;
-    }
-
-    @Override
-    public int compareTo(Datapoint other) {
-        return Long.compare(this.datapoint(), other.datapoint());
     }
 
     @Override
@@ -46,5 +39,14 @@ public class LinesPerMethod implements Comparable<Datapoint>, Datapoint {
     @Override
     public int hashCode() {
         return Objects.hash(qualifiedClassName, methodName, lineCount);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", LinesPerMethod.class.getSimpleName() + "[", "]")
+                .add("qualifiedClassName='" + qualifiedClassName + "'")
+                .add("methodName='" + methodName + "'")
+                .add("lineCount=" + lineCount)
+                .toString();
     }
 }

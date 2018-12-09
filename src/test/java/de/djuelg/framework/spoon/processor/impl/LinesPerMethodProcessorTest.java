@@ -1,15 +1,11 @@
 package de.djuelg.framework.spoon.processor.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import de.djuelg.domain.metric.result.BoxPlotMetricResult;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.Metric;
+import de.djuelg.domain.metric.impl.LinesPerMethodMetric;
 import de.djuelg.domain.model.LinesPerMethod;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 import spoon.Launcher;
 import spoon.processing.ProcessingManager;
@@ -22,25 +18,28 @@ public class LinesPerMethodProcessorTest {
     };
 
     @Test
-    public void process_createsResult() {
+    public void process_createsMetric() {
         LinesPerMethodProcessor processor = new LinesPerMethodProcessor();
 
         setupAndRun(processor);
 
-        MetricResult result = processor.createMetricResult();
-        assertNotNull(result);
+        Metric metric = processor.getMetric();
+        assertNotNull(metric);
     }
 
     @Test
-    public void geMetricResult_containsLinesPerMethodResult() {
+    public void geMetric_containsLinesPerMethodMetric() {
         LinesPerMethodProcessor processor = new LinesPerMethodProcessor();
 
         setupAndRun(processor);
 
-        BoxPlotMetricResult result = processor.createMetricResult();
-        List<LinesPerMethod> linesPerMethod = result.getDatapoints().stream().map(datapoint -> (LinesPerMethod) datapoint).collect(Collectors.toList());
-        assertEquals("de.djuelg.neuronizer.domain.comparator.AlphabeticComparator", linesPerMethod.get(0).getQualifiedClassName());
-        assertEquals("compare", linesPerMethod.get(0).getMethodName());
+        LinesPerMethodMetric metric = processor.getMetric();
+        LinesPerMethod exprected = new LinesPerMethod(
+                "de.djuelg.neuronizer.AndroidApplication",
+                "onCreate",
+                5);
+
+        assertTrue(metric.getDatapoints().contains(exprected));
     }
 
     private void setupAndRun(LinesPerMethodProcessor processor) {

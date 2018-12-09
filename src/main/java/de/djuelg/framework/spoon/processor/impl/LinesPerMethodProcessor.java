@@ -1,13 +1,8 @@
 package de.djuelg.framework.spoon.processor.impl;
 
-import de.djuelg.domain.metric.Datapoint;
-import de.djuelg.domain.metric.result.BoxPlotMetricResult;
+import de.djuelg.domain.metric.impl.LinesPerMethodMetric;
 import de.djuelg.domain.model.LinesPerMethod;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.ModifierKind;
@@ -18,14 +13,14 @@ public class LinesPerMethodProcessor extends MetricProcessor<CtMethod<?>> {
     private static final String GETTER_PREFIX = "get";
     private static final int HEAD_AND_TAIL_SIZE = 2;
 
-    private final List<Datapoint> linesPerMethod;
+    private final LinesPerMethodMetric metric;
 
     public LinesPerMethodProcessor() {
-        this(new ArrayList<>());
+        this(new LinesPerMethodMetric());
     }
 
-    public LinesPerMethodProcessor(List<Datapoint> linesPerMethod) {
-        this.linesPerMethod = linesPerMethod;
+    public LinesPerMethodProcessor(LinesPerMethodMetric metric) {
+        this.metric = metric;
     }
 
     @Override
@@ -34,7 +29,7 @@ public class LinesPerMethodProcessor extends MetricProcessor<CtMethod<?>> {
             String qualifiedClassName = ctMethod.getParent(CtClass.class).getQualifiedName();
             String methodName = ctMethod.getSimpleName();
             long lineCount = extractLineCount(ctMethod);
-            linesPerMethod.add(new LinesPerMethod(qualifiedClassName, methodName, lineCount));
+            metric.addDatapoint(new LinesPerMethod(qualifiedClassName, methodName, lineCount));
         }
     }
 
@@ -50,7 +45,7 @@ public class LinesPerMethodProcessor extends MetricProcessor<CtMethod<?>> {
     }
 
     @Override
-    public BoxPlotMetricResult createMetricResult() {
-        return new BoxPlotMetricResult(linesPerMethod);
+    public LinesPerMethodMetric getMetric() {
+        return metric;
     }
 }

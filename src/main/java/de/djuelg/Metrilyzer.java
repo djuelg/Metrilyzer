@@ -3,7 +3,7 @@ package de.djuelg;
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.MetricType;
 import de.djuelg.framework.DummyMetricVisualizer;
 import de.djuelg.framework.spoon.SpoonMetricRunner;
 
@@ -32,12 +32,12 @@ public class Metrilyzer {
         this.metricVisualizer = metricVisualizer;
     }
 
-    public void addMetric(Metric metric) {
-        metricRunner.addMetric(metric);
+    public void addMetric(MetricType metricType) {
+        metricRunner.addMetric(metricType);
     }
 
     public void run() {
-        List<MetricResult> results = metricRunner.runMetricsOnProject();
+        List<Metric> results = metricRunner.runMetricsOnProject();
         metricVisualizer.createDiagramsOf(results);
     }
 

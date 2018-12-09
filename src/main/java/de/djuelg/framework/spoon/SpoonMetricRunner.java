@@ -2,7 +2,7 @@ package de.djuelg.framework.spoon;
 
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.MetricType;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -20,12 +20,12 @@ public class SpoonMetricRunner implements MetricRunner {
     }
 
     @Override
-    public void addMetric(Metric metric) {
-        processors.addProcessorFor(metric);
+    public void addMetric(MetricType metricType) {
+        processors.addProcessorFor(metricType);
     }
 
     @Override
-    public List<MetricResult> runMetricsOnProject() {
+    public List<Metric> runMetricsOnProject() {
         processors.run();
         return processors.results();
     }

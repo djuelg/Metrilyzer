@@ -7,7 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.MetricType;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
 
 import java.nio.file.Paths;
@@ -27,7 +27,7 @@ public class SpoonProcessorsTest {
         List<MetricProcessor> processors = new ArrayList<>();
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
 
-        spoonProcessors.addProcessorFor(Metric.LINES_PER_CLASS);
+        spoonProcessors.addProcessorFor(MetricType.LINES_PER_CLASS);
 
         assertEquals(1, processors.size());
     }
@@ -38,7 +38,7 @@ public class SpoonProcessorsTest {
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
         when(factory.getProcessor(any())).thenReturn(mock(MetricProcessor.class));
 
-        spoonProcessors.addProcessorFor(Metric.LINES_PER_CLASS);
+        spoonProcessors.addProcessorFor(MetricType.LINES_PER_CLASS);
         spoonProcessors.run();
     }
 
@@ -50,7 +50,7 @@ public class SpoonProcessorsTest {
 
         spoonProcessors.run();
 
-        List<MetricResult> results = spoonProcessors.results();
+        List<Metric> results = spoonProcessors.results();
         assertNotNull(results);
         assertEquals(0, results.size());
 
@@ -62,10 +62,10 @@ public class SpoonProcessorsTest {
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
         when(factory.getProcessor(any())).thenReturn(mock(MetricProcessor.class));
 
-        spoonProcessors.addProcessorFor(Metric.LINES_PER_CLASS);
+        spoonProcessors.addProcessorFor(MetricType.LINES_PER_CLASS);
         spoonProcessors.run();
 
-        List<MetricResult> results = spoonProcessors.results();
+        List<Metric> results = spoonProcessors.results();
         assertEquals(1, results.size());
     }
 

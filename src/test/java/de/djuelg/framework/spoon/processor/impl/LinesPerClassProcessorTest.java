@@ -1,15 +1,11 @@
 package de.djuelg.framework.spoon.processor.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import de.djuelg.domain.metric.result.BoxPlotMetricResult;
-import de.djuelg.domain.metric.result.MetricResult;
+import de.djuelg.domain.metric.Metric;
+import de.djuelg.domain.metric.impl.LinesPerClassMetric;
 import de.djuelg.domain.model.LinesPerClass;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 import spoon.Launcher;
 import spoon.processing.ProcessingManager;
@@ -23,24 +19,27 @@ public class LinesPerClassProcessorTest {
     };
 
     @Test
-    public void process_createsResult() {
+    public void process_createsMetric() {
         LinesPerClassProcessor processor = new LinesPerClassProcessor();
 
         setupAndRun(processor);
 
-        MetricResult result = processor.createMetricResult();
-        assertNotNull(result);
+        Metric metric = processor.getMetric();
+        assertNotNull(metric);
     }
 
     @Test
-    public void geMetricResult_containsLinesPerClassResult() {
+    public void geMetricResult_containsLinesPerClassMetric() {
         LinesPerClassProcessor processor = new LinesPerClassProcessor();
 
         setupAndRun(processor);
 
-        BoxPlotMetricResult result = processor.createMetricResult();
-        List<LinesPerClass> linesPerClasses = result.getDatapoints().stream().map(datapoint -> (LinesPerClass) datapoint).collect(Collectors.toList());
-        assertEquals("de.djuelg.neuronizer.domain.interactors.note.impl.DisplayNoteInteractorImpl$1", linesPerClasses.get(0).getQualifiedName());
+        LinesPerClassMetric metric = processor.getMetric();
+        LinesPerClass exprected = new LinesPerClass(
+                "de.djuelg.neuronizer.AndroidApplication",
+                10);
+
+        assertTrue(metric.getDatapoints().contains(exprected));
     }
 
     private void setupAndRun(LinesPerClassProcessor processor) {
