@@ -1,5 +1,6 @@
 package de.djuelg.framework.spoon.processor.impl;
 
+import static de.djuelg.framework.spoon.SpoonTestUtils.setupAndRun;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -7,10 +8,6 @@ import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.impl.LinesPerClassMetric;
 import de.djuelg.domain.model.LinesPerClass;
 import org.junit.Test;
-import spoon.Launcher;
-import spoon.processing.ProcessingManager;
-import spoon.reflect.factory.Factory;
-import spoon.support.QueueProcessingManager;
 
 public class LinesPerClassProcessorTest {
 
@@ -40,16 +37,5 @@ public class LinesPerClassProcessorTest {
                 10);
 
         assertTrue(metric.getDatapoints().contains(exprected));
-    }
-
-    private void setupAndRun(LinesPerClassProcessor processor) {
-        final Launcher launcher = new Launcher();
-        launcher.setArgs(LinesPerClassProcessorTest.ARGS);
-        launcher.run();
-
-        final Factory factory = launcher.getFactory();
-        final ProcessingManager processingManager = new QueueProcessingManager(factory);
-        processingManager.addProcessor(processor);
-        processingManager.process(factory.Class().getAll());
     }
 }
