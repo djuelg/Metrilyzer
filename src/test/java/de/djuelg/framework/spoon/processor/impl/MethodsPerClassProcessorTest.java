@@ -5,15 +5,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import de.djuelg.domain.metric.Metric;
-import de.djuelg.domain.metric.impl.LinesPerClassMetric;
-import de.djuelg.domain.model.LinesPerClass;
+import de.djuelg.domain.metric.impl.MethodsPerClassMetric;
+import de.djuelg.domain.model.MethodsPerClass;
 import org.junit.Test;
 
-public class LinesPerClassProcessorTest {
+public class MethodsPerClassProcessorTest {
 
     @Test
     public void process_createsMetric() {
-        LinesPerClassProcessor processor = new LinesPerClassProcessor();
+        MethodsPerClassProcessor processor = new MethodsPerClassProcessor();
 
         setupAndRun(processor);
 
@@ -23,14 +23,14 @@ public class LinesPerClassProcessorTest {
 
     @Test
     public void geMetricResult_containsLinesPerClassMetric() {
-        LinesPerClassProcessor processor = new LinesPerClassProcessor();
+        MethodsPerClassProcessor processor = new MethodsPerClassProcessor();
 
         setupAndRun(processor);
 
-        LinesPerClassMetric metric = processor.getMetric();
-        LinesPerClass exprected = new LinesPerClass(
-                "de.djuelg.neuronizer.AndroidApplication",
-                10);
+        MethodsPerClassMetric metric = processor.getMetric();
+        MethodsPerClass exprected = new MethodsPerClass(
+                "de.djuelg.neuronizer.presentation.ui.dialog.BaseDialogs",
+                6);
 
         assertTrue(metric.getDatapoints().contains(exprected));
     }
