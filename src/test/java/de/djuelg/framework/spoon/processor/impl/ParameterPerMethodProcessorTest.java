@@ -36,7 +36,7 @@ public class ParameterPerMethodProcessorTest {
                 "onCreate",
                 0);
 
-        metric.getDatapoints().stream().filter(v -> v.getParameterCount() > 5).forEach(System.out::println);
+        metric.getDatapoints().stream().filter(v -> v.getNumber() > 5).forEach(System.out::println);
 
         assertTrue(metric.getDatapoints().contains(exprected));
     }

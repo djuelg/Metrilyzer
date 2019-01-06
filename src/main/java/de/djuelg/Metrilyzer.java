@@ -4,7 +4,7 @@ import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
-import de.djuelg.framework.DummyMetricVisualizer;
+import de.djuelg.framework.RawConsoleOutputMetricVisualizer;
 import de.djuelg.framework.spoon.SpoonMetricRunner;
 
 import java.nio.file.Path;
@@ -58,7 +58,7 @@ public class Metrilyzer {
 
         public Metrilyzer build() {
             MetricRunner metricRunner = new SpoonMetricRunner(Objects.requireNonNull(inputProject));
-            MetricVisualizer metricVisualizer = new DummyMetricVisualizer(Objects.requireNonNull(outputDirectory));
+            MetricVisualizer metricVisualizer = new RawConsoleOutputMetricVisualizer(Objects.requireNonNull(outputDirectory));
             return new Metrilyzer(metricRunner, metricVisualizer);
         }
     }

@@ -1,10 +1,12 @@
 package de.djuelg.domain.metric;
 
+import de.djuelg.domain.model.Datapoint;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public abstract class Metric<T> {
+public abstract class Metric<T extends Datapoint> {
 
     private final String name;
     private final Collection<T> datapoints;
