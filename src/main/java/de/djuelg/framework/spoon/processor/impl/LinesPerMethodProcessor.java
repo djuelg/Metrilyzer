@@ -3,6 +3,10 @@ package de.djuelg.framework.spoon.processor.impl;
 import de.djuelg.domain.metric.impl.LinesPerMethodMetric;
 import de.djuelg.domain.model.LinesPerMethod;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
+
+import java.util.Optional;
+
+import spoon.reflect.code.CtBlock;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.ModifierKind;
@@ -41,7 +45,11 @@ public class LinesPerMethodProcessor extends MetricProcessor<CtMethod<?>> {
     }
 
     private long extractLineCount(CtMethod<?> method) {
-        return method.getBody().toString().split("\r\n|\r|\n").length - HEAD_AND_TAIL_SIZE;
+        Optional<? extends CtBlock<?>> body = Optional.ofNullable(method.getBody());
+        return body.map(Object::toString)
+                .map(bodyString -> bodyString.split("\r\n|\r|\n"))
+                .map(lines -> lines.length - HEAD_AND_TAIL_SIZE)
+                .orElse(0);
     }
 
     @Override

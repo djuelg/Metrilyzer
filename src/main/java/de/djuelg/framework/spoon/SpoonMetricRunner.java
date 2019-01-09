@@ -3,6 +3,7 @@ package de.djuelg.framework.spoon;
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
+import de.djuelg.domain.model.Datapoint;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -25,7 +26,7 @@ public class SpoonMetricRunner implements MetricRunner {
     }
 
     @Override
-    public List<Metric> runMetricsOnProject() {
+    public List<Metric<? extends Datapoint>> runMetricsOnProject() {
         processors.run();
         return processors.results();
     }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
+import de.djuelg.domain.model.Datapoint;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
 
 import java.nio.file.Paths;
@@ -24,7 +25,7 @@ public class SpoonProcessorsTest {
 
     @Test
     public void testAddProcessorFor_addsProcessor() {
-        List<MetricProcessor> processors = new ArrayList<>();
+        List<MetricProcessor<?>> processors = new ArrayList<>();
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
 
         spoonProcessors.addProcessorFor(MetricType.LINES_PER_CLASS);
@@ -34,7 +35,7 @@ public class SpoonProcessorsTest {
 
     @Test
     public void testRun_works() {
-        List<MetricProcessor> processors = new ArrayList<>();
+        List<MetricProcessor<?>> processors = new ArrayList<>();
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
         when(factory.getProcessor(any())).thenReturn(mock(MetricProcessor.class));
 
@@ -44,13 +45,13 @@ public class SpoonProcessorsTest {
 
     @Test
     public void testResults_returnCollection() {
-        List<MetricProcessor> processors = new ArrayList<>();
+        List<MetricProcessor<?>> processors = new ArrayList<>();
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
         when(factory.getProcessor(any())).thenReturn(mock(MetricProcessor.class));
 
         spoonProcessors.run();
 
-        List<Metric> results = spoonProcessors.results();
+        List<Metric<? extends Datapoint>> results = spoonProcessors.results();
         assertNotNull(results);
         assertEquals(0, results.size());
 
@@ -58,14 +59,14 @@ public class SpoonProcessorsTest {
 
     @Test
     public void testResults_returnsFilledCollection() {
-        List<MetricProcessor> processors = new ArrayList<>();
+        List<MetricProcessor<?>> processors = new ArrayList<>();
         SpoonProcessors spoonProcessors = new SpoonProcessors(Paths.get(INPUT_PROJECT_PATH), factory, processors);
         when(factory.getProcessor(any())).thenReturn(mock(MetricProcessor.class));
 
         spoonProcessors.addProcessorFor(MetricType.LINES_PER_CLASS);
         spoonProcessors.run();
 
-        List<Metric> results = spoonProcessors.results();
+        List<Metric<? extends Datapoint>> results = spoonProcessors.results();
         assertEquals(1, results.size());
     }
 

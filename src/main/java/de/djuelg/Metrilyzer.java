@@ -4,8 +4,9 @@ import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
-import de.djuelg.framework.RawConsoleOutputMetricVisualizer;
+import de.djuelg.domain.model.Datapoint;
 import de.djuelg.framework.spoon.SpoonMetricRunner;
+import de.djuelg.sample.RawConsoleOutputMetricVisualizer;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Metrilyzer {
     }
 
     public void run() {
-        List<Metric> results = metricRunner.runMetricsOnProject();
+        List<Metric<? extends Datapoint>> results = metricRunner.runMetricsOnProject();
         metricVisualizer.createDiagramsOf(results);
     }
 

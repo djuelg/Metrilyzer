@@ -1,11 +1,14 @@
 package de.djuelg.framework.spoon;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
+import de.djuelg.domain.model.Datapoint;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -38,7 +41,7 @@ public class SpoonMetricRunnerTest {
     public void testRunMetricOnProjects_returnsCollection() {
         MetricRunner metricRunner = new SpoonMetricRunner(Paths.get(INPUT_PROJECT_PATH));
 
-        List<Metric> metrics = metricRunner.runMetricsOnProject();
+        List<Metric<? extends Datapoint>> metrics = metricRunner.runMetricsOnProject();
 
         assertNotNull(metrics);
     }
@@ -48,7 +51,7 @@ public class SpoonMetricRunnerTest {
         MetricRunner metricRunner = new SpoonMetricRunner(spoonProcessors);
 
         metricRunner.addMetric(MetricType.LINES_PER_CLASS);
-        List<Metric> metrics = metricRunner.runMetricsOnProject();
+        List<Metric<? extends Datapoint>> metrics = metricRunner.runMetricsOnProject();
 
         verify(spoonProcessors, times(1)).run();
         verify(spoonProcessors, times(1)).results();

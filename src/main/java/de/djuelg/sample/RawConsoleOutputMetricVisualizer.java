@@ -1,4 +1,4 @@
-package de.djuelg.framework;
+package de.djuelg.sample;
 
 import de.djuelg.domain.MetricVisualizer;
 import de.djuelg.domain.metric.Metric;
@@ -13,19 +13,23 @@ import java.util.stream.Collectors;
 public class RawConsoleOutputMetricVisualizer implements MetricVisualizer {
 
     public RawConsoleOutputMetricVisualizer(Path path) {
-        // TODO Find Library which creates plots
     }
 
     @Override
-    public void createDiagramsOf(List<Metric> results) {
+    public void createDiagramsOf(List<Metric<? extends Datapoint>> results) {
         results.forEach(metric -> {
             System.out.println("## " + metric.getName() + "\n");
-            System.out.println("### Top ten\n");
+            System.out.println("### Top ten max\n");
 
-            Collection<Datapoint> datapoints = metric.getDatapoints();
+            Collection<? extends Datapoint> datapoints = metric.getDatapoints();
             List<String> topTen = datapoints.stream().sorted().map(Datapoint::toString).collect(Collectors.toList());
             Collections.reverse(topTen);
             topTen.stream().limit(10).forEach(System.out::println);
+            System.out.println();
+
+            System.out.println("### Datapoints\n");
+            String collect = datapoints.stream().map(Datapoint::getNumber).map(Object::toString).collect(Collectors.joining(","));
+            System.out.println(collect);
             System.out.println();
         });
     }

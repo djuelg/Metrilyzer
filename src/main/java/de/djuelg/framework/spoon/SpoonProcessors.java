@@ -2,6 +2,7 @@ package de.djuelg.framework.spoon;
 
 import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
+import de.djuelg.domain.model.Datapoint;
 import de.djuelg.framework.spoon.processor.MetricProcessor;
 
 import java.nio.file.Path;
@@ -18,13 +19,13 @@ public class SpoonProcessors {
 
     private final Path inputProject;
     private final MetricProcessorFactory processorFactory;
-    private final List<MetricProcessor> processors;
+    private final List<MetricProcessor<?>> processors;
 
     public SpoonProcessors(Path inputProject) {
         this(inputProject, new MetricProcessorFactory(), new ArrayList<>());
     }
 
-    public SpoonProcessors(Path inputProject, MetricProcessorFactory processorFactory, List<MetricProcessor> processors) {
+    public SpoonProcessors(Path inputProject, MetricProcessorFactory processorFactory, List<MetricProcessor<?>> processors) {
         this.inputProject = inputProject;
         this.processorFactory = processorFactory;
         this.processors = processors;
@@ -55,7 +56,7 @@ public class SpoonProcessors {
         processingManager.process(factory.Class().getAll());
     }
 
-    public List<Metric> results() {
+    public List<Metric<? extends Datapoint>> results() {
         return processors.stream()
                 .map(MetricProcessor::getMetric).collect(Collectors.toList());
     }
