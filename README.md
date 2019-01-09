@@ -10,6 +10,10 @@ It can be used to read any Java project and produce data for the following metri
 * CLASS_PER_PACKAGE
 * METHODS_PER_CLASSES
 
+## Sample
+Here you can see a sample metric (Parameter per method) for the Spring Boot project as a Histogram.
+![spring-parameter-per-method-sample](https://github.com/djuelg/Metrilyzer/blob/master/spring-parameter-per-method-sample.png)
+
 ## Getting started
 
 To get started with this project take a look at `MetrilyzerSampleRunner` or `MetrilyzerTest`.
