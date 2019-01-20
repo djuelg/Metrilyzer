@@ -19,6 +19,14 @@ Here you can see a sample metric (Parameter per method) for the Spring Boot proj
 To get started with this project take a look at `MetrilyzerSampleRunner` or `MetrilyzerTest`.
 If you don't get further don't hesitate to ask me :)
 
+## Ideas
+
+* NESTING_DEPTH
+* OUTPUT_ARGUMENTS
+* IF/ELSE_POLYMORPHISM
+* TESTCODE_METRICS
+* SOM_DATANALYSIS
+
 ## Blogpost
 
 You can read about this project and it's possibilities here: https://craftcodecrew.com/clean-code-the-hard-facts-and-figures/
