@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import org.junit.Ignore;
+import de.djuelg.sample.Metrilyzer;
 import org.junit.Test;
 
 public class MetrilyzerTest {
@@ -24,7 +24,6 @@ public class MetrilyzerTest {
     private MetricRunner metricRunner = mock(SpoonMetricRunner.class);
     private MetricVisualizer metricVisualizer = mock(MetricVisualizer.class);
 
-    @Ignore("testApiUsage: Ignored until classes is implemented")
     @Test
     public void testApiUsage() {
         Path inputProject = Paths.get(INPUT_PROJECT_PATH);

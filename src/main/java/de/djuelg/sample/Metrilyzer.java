@@ -1,4 +1,4 @@
-package de.djuelg;
+package de.djuelg.sample;
 
 import de.djuelg.domain.MetricRunner;
 import de.djuelg.domain.MetricVisualizer;
@@ -6,7 +6,6 @@ import de.djuelg.domain.metric.Metric;
 import de.djuelg.domain.metric.MetricType;
 import de.djuelg.domain.model.Datapoint;
 import de.djuelg.framework.spoon.SpoonMetricRunner;
-import de.djuelg.sample.RawConsoleOutputMetricVisualizer;
 
 import java.nio.file.Path;
 import java.util.List;

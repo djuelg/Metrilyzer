@@ -1,6 +1,5 @@
 package de.djuelg.sample;
 
-import de.djuelg.Metrilyzer;
 import de.djuelg.domain.metric.MetricType;
 
 import java.nio.file.Path;
@@ -8,7 +7,7 @@ import java.nio.file.Paths;
 
 public class MetrilyzerSampleRunner {
 
-    private static final String INPUT_PROJECT_PATH = "/path/to/project";
+    private static final String INPUT_PROJECT_PATH =  "src/test/resources/Neuronizer/main/";
 
     public static void main(String[] args) {
         Path inputProject = Paths.get(INPUT_PROJECT_PATH);

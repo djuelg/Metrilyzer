@@ -32,7 +32,7 @@ public class SpoonProcessors {
     }
 
     public void addProcessorFor(MetricType metricType) {
-        MetricProcessor processor = processorFactory.getProcessor(metricType);
+        MetricProcessor<?> processor = processorFactory.getProcessor(metricType);
         processors.add(processor);
     }
 
