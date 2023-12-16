@@ -44,7 +44,7 @@
         <repository>
             <id>inria</id>
             <name>triskell-public-release</name>
-            <url>http://maven.inria.fr/artifactory/triskell-public-release</url>
+            <url>https://maven.inria.fr/artifactory/triskell-public-release</url>
         </repository>
     </repositories>
 </project>
